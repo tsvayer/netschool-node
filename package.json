@@ -1,6 +1,6 @@
 {
   "name": "netschool-node",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "API for NetSchool",
   "author": {
     "name": "Vitaliy Tsvayer",
@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/tsvayer/netschool-node",
   "scripts": {
-    "test": "mocha -r scripts/mocha-babel -r dotenv/config test/**/*.test.ts",
+    "test": "mocha -r babel-register-ts -r dotenv/config test/**/*.test.ts",
     "build": "yarn build:clean && yarn build:js && yarn build:types",
     "build:js": "babel src --out-dir lib --extensions '.ts'",
     "build:types": "tsc --emitDeclarationOnly",
@@ -49,6 +49,7 @@
     "@types/mocha": "^5.2.5",
     "@types/moment": "^2.13.0",
     "@types/qs": "^6.5.1",
+    "babel-register-ts": "^7.0.0",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
     "typescript": "^3.0.3"

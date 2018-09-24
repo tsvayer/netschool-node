@@ -1,6 +1,6 @@
 import { getAssignments } from '../src/index'
 
-describe.skip('Get Assignments', async function() {
+describe('Get Assignments', async function() {
   this.timeout(10000) // timeout after 10s
 
   const assignments = await getAssignments({
