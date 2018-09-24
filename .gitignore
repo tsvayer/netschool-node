@@ -1,0 +1,10 @@
+# npm/yarn
+node_modules
+*.tgz
+
+# typescript
+dist
+lib
+
+# dotenv
+.env

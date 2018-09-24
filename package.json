@@ -1,0 +1,56 @@
+{
+  "name": "netschool-node",
+  "version": "0.0.1",
+  "description": "API for NetSchool",
+  "author": {
+    "name": "Vitaliy Tsvayer",
+    "email": "tsvayer@gmail.com"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tsvayer/netschool-node.git"
+  },
+  "homepage": "https://github.com/tsvayer/netschool-node",
+  "scripts": {
+    "test": "mocha -r scripts/mocha-babel -r dotenv/config test/**/*.test.ts",
+    "build": "yarn build:clean && yarn build:js && yarn build:types",
+    "build:js": "babel src --out-dir lib --extensions '.ts'",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:clean": "rm -rf lib",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "yarn type-check --watch"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "dotenv": "^6.0.0",
+    "moment": "^2.22.2",
+    "qs": "^6.5.2",
+    "ts-md5": "^1.2.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-typescript": "^7.1.0",
+    "@babel/register": "^7.0.0",
+    "@types/axios": "^0.14.0",
+    "@types/chai": "^4.1.5",
+    "@types/cheerio": "^0.22.9",
+    "@types/mocha": "^5.2.5",
+    "@types/moment": "^2.13.0",
+    "@types/qs": "^6.5.1",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "typescript": "^3.0.3"
+  }
+}
