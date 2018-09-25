@@ -22,7 +22,7 @@ const typeMap: { [key: string]: string } = {
 }
 
 export interface Assignment {
-  id: string
+  aid: string
   date: string
   subject: string
   type: string
@@ -88,7 +88,7 @@ function parseTrRecords(
     const tdText = $(td).text()
     updateRecord(record, tdText, i)
     if (i == 2) {
-      record.id = $(td)
+      record.aid = $(td)
         .children('a')
         .attr('onclick')
         .match(/\d+/)![0]
