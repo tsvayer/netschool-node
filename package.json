@@ -18,7 +18,7 @@
     "test": "mocha -r babel-register-ts -r dotenv/config test/**/*.test.ts",
     "build": "yarn build:clean && yarn build:js && yarn build:types",
     "build:js": "babel src --out-dir lib --extensions '.ts'",
-    "build:types": "tsc --emitDeclarationOnly",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:clean": "rm -rf lib",
     "type-check": "tsc --noEmit",
     "type-check:watch": "yarn type-check --watch"

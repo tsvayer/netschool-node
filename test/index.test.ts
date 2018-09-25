@@ -1,12 +1,13 @@
 import { getAssignments } from '../src/index'
 
+const { NETSCHOOL_URL, NETSCHOOL_USER, NETSCHOOL_PASSWORD } = process.env
 describe('Get Assignments', async function() {
   this.timeout(10000) // timeout after 10s
 
   const assignments = await getAssignments({
-    url: process.env.NETSCHOOL_URL,
-    user: process.env.NETSCHOOL_USER,
-    password: process.env.NETSCHOOL_PASSWORD,
+    url: NETSCHOOL_URL!,
+    user: NETSCHOOL_USER!,
+    password: NETSCHOOL_PASSWORD!,
     weeks: ['03.09.18', '10.09.18', '17.09.18', '24.09.18']
   })
 

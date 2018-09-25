@@ -2,7 +2,7 @@ import { fetchAssignments } from './fetcher'
 import { parseAssignments, Assignment } from './parser'
 import { flatten } from './utils'
 
-export { Assignment } from './parser'
+export { Assignment }
 
 export async function getAssignments({
   url,
