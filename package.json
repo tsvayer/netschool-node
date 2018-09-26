@@ -19,7 +19,7 @@
     "build": "yarn build:clean && yarn build:js && yarn build:types",
     "build:js": "babel src --out-dir lib --extensions '.ts'",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:clean": "rm -rf lib",
+    "build:clean": "rimraf lib",
     "type-check": "tsc --noEmit",
     "type-check:watch": "yarn type-check --watch"
   },
@@ -52,6 +52,7 @@
     "babel-register-ts": "^7.0.0",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
+    "rimraf": "^2.6.2",
     "typescript": "^3.0.3"
   }
 }
