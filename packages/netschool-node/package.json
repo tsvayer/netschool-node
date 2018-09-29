@@ -1,0 +1,44 @@
+{
+  "name": "netschool-node",
+  "version": "0.0.2",
+  "description": "API for NetSchool",
+  "author": {
+    "name": "Vitaliy Tsvayer",
+    "email": "tsvayer@gmail.com"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tsvayer/netschool-node.git"
+  },
+  "homepage": "https://github.com/tsvayer/netschool-node",
+  "scripts": {
+    "test": "mocha -r babel-register-ts -r netschool-dev-utils/dotenv-config test/**/*.test.ts",
+    "build": "yarn build:clean && yarn build:js && yarn build:types",
+    "build:js": "babel src --out-dir lib --extensions '.ts'",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:clean": "rimraf lib",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "yarn type-check --watch"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "moment": "^2.22.2",
+    "qs": "^6.5.2",
+    "ts-md5": "^1.2.4"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/cheerio": "^0.22.9",
+    "@types/moment": "^2.13.0",
+    "@types/qs": "^6.5.1",
+    "netschool-dev-utils": "^1.0.0"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "netschool-cli",
+  "version": "0.0.2",
+  "bin": "lib/cli.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test": "mocha -r babel-register-ts -r netschool-dev-utils/dotenv-config test/**/*.test.ts",
+    "build": "yarn build:clean && yarn build:js && yarn build:types",
+    "build:js": "babel src --out-dir lib --extensions '.ts'",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:clean": "rimraf lib",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "yarn type-check --watch"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.2.17",
+    "netschool-dev-utils": "^1.0.0"
+  },
+  "dependencies": {
+    "mongoose": "^5.2.17",
+    "netschool-node": "^0.0.2"
+  }
+}

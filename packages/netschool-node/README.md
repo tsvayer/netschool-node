@@ -15,5 +15,6 @@ NETSCHOOL_PASSWORD=
 and run the tests:
 
 ```bash
-lerna run test
+yarn test
+# npm run test
 ```
