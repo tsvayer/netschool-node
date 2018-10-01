@@ -4,6 +4,10 @@
   "repository": "git@github.com:tsvayer/netschool-node.git",
   "author": "Vitaliy Tsvayer <tsvayer@gmail.com>",
   "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "private": true,
   "devDependencies": {
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
