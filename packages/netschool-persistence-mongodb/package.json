@@ -1,13 +1,12 @@
 {
   "name": "netschool-persistence-mongodb",
   "version": "0.0.2",
-  "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "mocha -r babel-register-ts -r netschool-dev-utils/dotenv-config test/**/*.test.ts",
+    "test": "mocha -r babel-register-ts -r netschool-dev-utils/dotenv.config test/**/*.test.ts",
     "build": "yarn build:clean && yarn build:js && yarn build:types",
     "build:js": "babel src --out-dir lib --extensions '.ts'",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -outDir lib -p tsconfig.build.json",
     "build:clean": "rimraf lib",
     "type-check": "tsc --noEmit",
     "type-check:watch": "yarn type-check --watch"
