@@ -1,9 +1,8 @@
 {
-  "name": "netschool-cli",
+  "name": "netschool-persistence-mongodb",
   "version": "0.0.2",
-  "bin": "lib/cli.js",
+  "main": "index.js",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "test": "mocha -r babel-register-ts -r netschool-dev-utils/dotenv-config test/**/*.test.ts",
     "build": "yarn build:clean && yarn build:js && yarn build:types",
@@ -13,11 +12,12 @@
     "type-check": "tsc --noEmit",
     "type-check:watch": "yarn type-check --watch"
   },
-  "devDependencies": {
-    "netschool-dev-utils": "^1.0.0"
-  },
   "dependencies": {
-    "netschool-node": "^0.0.2",
-    "netschool-persistence-mongodb": "^0.0.2"
+    "mongoose": "^5.3.2",
+    "netschool-dev-utils": "^1.0.0",
+    "netschool-node": "^0.0.2"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.2.18"
   }
 }
