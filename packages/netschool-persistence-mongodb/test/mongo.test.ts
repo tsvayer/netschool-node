@@ -1,4 +1,4 @@
-import { getAssignments } from 'netschool-node'
+import { login, logout, getAssignments } from 'netschool-node'
 import { DbContext } from '../src/DbContext'
 
 const {
@@ -20,12 +20,17 @@ describe('mongo', function() {
   })
 
   it.skip('should save', async function() {
-    const assignments = await getAssignments({
-      url: NETSCHOOL_URL!,
+    const session = await login({
+      baseAddress: NETSCHOOL_URL!,
       user: NETSCHOOL_USER!,
-      password: NETSCHOOL_PASSWORD!,
-      weeks: ['03.09.18', '10.09.18', '17.09.18', '24.09.18', '01.10.18']
+      password: NETSCHOOL_PASSWORD!
     })
+    const assignments = await getAssignments({
+      weeks: ['03.09.18', '10.09.18', '17.09.18', '24.09.18', '01.10.18'],
+      session
+    })
+
+    await logout(session)
 
     const { Assignment } = ctx.Model
 

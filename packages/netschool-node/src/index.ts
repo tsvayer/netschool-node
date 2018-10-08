@@ -1,20 +1,18 @@
-import { fetchAssignments } from './fetcher'
+import { login, logout, fetchAssignments, Session } from './fetcher'
 import { parseAssignments, Assignment } from './parser'
 import { flatten } from './utils'
 
 export { Assignment }
 
+export { login, logout, Session }
+
 export async function getAssignments({
-  url,
-  user,
-  password,
-  weeks
+  weeks,
+  session
 }: {
-  url: string
-  user: string
-  password: string
   weeks: string[]
+  session: Session
 }): Promise<Assignment[]> {
-  const result = await fetchAssignments(url, user, password, weeks)
+  const result = await fetchAssignments({ weeks, session })
   return flatten(result.map(html => parseAssignments(html)))
 }

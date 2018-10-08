@@ -3,11 +3,10 @@ import qs from 'qs'
 import { parseAtVer, AtVer } from './parser'
 import { md5 } from './utils'
 
-interface Session {
+export interface Session {
   baseAddress: string
-  user: string
-  pw: string
   cookie: string[]
+  atVer: AtVer
 }
 
 const URL_GETDATA = '/webapi/auth/getdata'
@@ -15,43 +14,60 @@ const URL_LOGIN = '/asp/postlogin.asp'
 const URL_ASSIGNMENTS = '/asp/Curriculum/Assignments.asp'
 const URL_LOGOUT = '/asp/logout.asp'
 
-export async function fetchAssignments(
-  baseAddress: string,
-  user: string,
-  password: string,
-  weekDates: string[]
-) {
-  const session: Session = {
-    baseAddress,
-    user: user,
-    pw: password,
-    cookie: []
-  }
-
-  await get('', session)
-
-  let result = await post(URL_GETDATA, session)
-
-  const loginData = buildLoginRequest(result, session)
-  result = await post(URL_LOGIN, session, loginData)
-
-  let atVer = parseAtVer(result)
+export async function fetchAssignments({
+  weeks,
+  session
+}: {
+  weeks: string[]
+  session: Session
+}) {
   const assignments: string[] = []
   //NOTE: these tasks cannot be parallelized,
   // because NetSchool generates new VER values for every response
   // which needs to be used for the next request!
-  for (let weekDate of weekDates) {
-    result = await post(
+  for (let weekDate of weeks) {
+    const result = await post(
       URL_ASSIGNMENTS,
       session,
-      buildAssignmentsRequest(atVer, weekDate)
+      buildAssignmentsRequest(session.atVer, weekDate)
     )
-    atVer = parseAtVer(result)
+    session.atVer = parseAtVer(result)
     assignments.push(result)
   }
 
-  await post(URL_LOGOUT, session, { ...atVer })
   return assignments
+}
+
+export async function login({
+  baseAddress,
+  user,
+  password
+}: {
+  baseAddress: string
+  user: string
+  password: string
+}): Promise<Session> {
+  const session: Session = {
+    baseAddress,
+    cookie: [],
+    atVer: {
+      at: '',
+      ver: ''
+    }
+  }
+  await get('', session)
+
+  let result = await post(URL_GETDATA, session)
+
+  const loginData = buildLoginRequest(user, password, result)
+  result = await post(URL_LOGIN, session, loginData)
+
+  session.atVer = parseAtVer(result)
+  return session
+}
+
+export async function logout(session: Session): Promise<void> {
+  await post(URL_LOGOUT, session, { ...session.atVer })
 }
 
 function buildAssignmentsRequest(atVer: AtVer, weekDate: string) {
@@ -65,9 +81,9 @@ function buildAssignmentsRequest(atVer: AtVer, weekDate: string) {
     // optional: 'optional'
   }
 }
-function buildLoginRequest(data: any, session: Session): any {
-  const pw2 = md5(data.salt + md5(session.pw))
-  const pw = pw2.substr(0, session.pw.length)
+function buildLoginRequest(user: string, password: string, data: any): any {
+  const pw2 = md5(data.salt + md5(password))
+  const pw = pw2.substr(0, password.length)
   return {
     PW2: pw2,
     LoginType: 1,
@@ -78,7 +94,7 @@ function buildLoginRequest(data: any, session: Session): any {
     CN: 3,
     SFT: 2,
     SCID: 1,
-    UN: session.user,
+    UN: user,
     PW: pw,
     lt: data.lt,
     ver: data.ver
